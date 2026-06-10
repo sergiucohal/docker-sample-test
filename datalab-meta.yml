@@ -3,11 +3,4 @@ title: Lab sample Hello world
 abstract: This lab is a simple lab
 alternateName: Hello Lab
 version: 1.0.0
-creator:
-  name: scohal
-contactPoint:
-  email:sergiurazvan.cohal@endava.com
-  id: 123456
-  organisation-name: endava
-  role: Developer
 language: english
