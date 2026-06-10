@@ -1,6 +1,5 @@
-ARG JL_BASE_VERSION=0.8.0-stable
 ARG REGISTRY=repos.esac.esa.int:62220
-FROM ${REGISTRY}/datalabs/datalabs_base:${JL_BASE_VERSION}-20.04
+FROM ${REGISTRY}/datalabs/datalabs_base:stable-22.04
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer="nmaltsev@argans.eu"
 EXPOSE 10000
