@@ -1,15 +1,28 @@
 ARG REGISTRY=repos.esac.esa.int:62220
-FROM ${REGISTRY}/datalabs/datalabs_base:stable-22.04
-ENV DEBIAN_FRONTEND noninteractive
-LABEL maintainer="nmaltsev@argans.eu"
-EXPOSE 10000
-EXPOSE 8000
-ARG WORK_DIR="/opt"
-WORKDIR $WORK_DIR
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends python3-pip=20.0.2-5ubuntu1.11 \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
-RUN pip3 install --no-cache-dir aiohttp==3.7.4
-COPY src/. ./
-RUN chmod +x ./main.sh
+FROM ${REGISTRY}/datalabs/jl_base:stable
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# --- Install mamba (fast conda solver) ------------------------------------
+RUN conda install --quiet --yes -c conda-forge 'mamba' \
+    && conda clean --all -f -y \
+    && mamba shell init --shell bash --root-prefix="$(conda info --base)"
+
+# --- (Optional) Create a conda environment from an environment.yml --------
+# COPY environment.yml /tmp/environment.yml
+# RUN mamba env create -f /tmp/environment.yml \
+#     && conda clean --all -f -y
+
+# --- (Optional) Install packages with pip ---------------------------------
+# RUN pip install --no-cache-dir \
+#     somepackage==1.0.0
+
+# --- Copy recipe configuration files --------------------------------------
+COPY jupyter_notebook_config.py /etc/
+COPY user-01.sh /opt/datalab/init.d/user-01.sh
+
+# --- Set permissions -------------------------------------------------------
+RUN chmod +x /opt/datalab/init.d/user-01.sh
+
+# --- Jupyter configuration path --------------------------------------------
+ENV JUPYTER_CONFIG_PATH=/etc/

@@ -1,0 +1,24 @@
+# meta.toml — validated by CI (schema: schemas/meta.schema.json)
+#
+# title     — Must match your project name. Lowercase, digits, hyphens, underscores. Max 15 chars.
+# abstract  — Short description, 20-250 characters.
+# cores/ram — CPU cores (1-32) and RAM in GB (1-96) your app needs.
+
+title = "sample_test"
+abstract = "used for testing"
+maintainer = "endava"
+email = "you@endava.com"
+version = "0.1.0"
+license = "Apache-2.0"
+gpu = false
+access = "public"
+cores = 2
+ram = 4
+
+# Populated/validated by CI — do not change
+base_image = "jl_base"
+base_version = "stable"
+type = "jupyterlab"
+
+# Uncomment to share with specific users or groups
+# shared_with = ["username", "groupname"]

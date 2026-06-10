@@ -1,8 +1,0 @@
-# Common metadata (for interoperability; also discoverable)
-title: jl_demo
-abstract: This lab is a simple lab
-alternateName: Hello Lab
-contactPoint.email: jane.doe@univers.eu
-creator.name: Jane Doe
-version: 1.0.0
-language: english
