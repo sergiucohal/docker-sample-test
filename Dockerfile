@@ -4,9 +4,12 @@ FROM ${REGISTRY}/datalabs/jl_base:stable
 ARG DEBIAN_FRONTEND=noninteractive
 
 # --- Install mamba (fast conda solver) ------------------------------------
-RUN conda install --quiet --yes -c conda-forge 'mamba' \
-    && conda clean --all -f -y \
-    && mamba shell init --shell bash --root-prefix="$(conda info --base)"
+#   this causes error:
+#     /opt/miniconda/bin/python: /lib/x86_64-linux-gnu/libc.so.6:
+# version `GLIBC_2.28' not found
+# RUN conda install --quiet --yes -c conda-forge 'mamba' \
+#     && conda clean --all -f -y \
+#     && mamba shell init --shell bash --root-prefix="$(conda info --base)"
 
 # --- (Optional) Create a conda environment from an environment.yml --------
 # COPY environment.yml /tmp/environment.yml
