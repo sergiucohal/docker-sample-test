@@ -1,5 +1,5 @@
 ARG REGISTRY=repos.esac.esa.int:62220
-FROM ${REGISTRY}/datalabs/jl_base:stable
+FROM ${REGISTRY}/datalabs/jl_minimal:0.8.0-stable
 
 ARG DEBIAN_FRONTEND=noninteractive
 
