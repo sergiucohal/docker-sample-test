@@ -16,9 +16,9 @@ cores = 2
 ram = 4
 
 # Populated/validated by CI — do not change
-base_image = "jl_base"
-base_version = "stable"
-type = "jupyterlab"
+#base_image = "jl_base"
+#base_version = "stable"
+#type = "jupyterlab"
 
 # Uncomment to share with specific users or groups
 # shared_with = ["username", "groupname"]
