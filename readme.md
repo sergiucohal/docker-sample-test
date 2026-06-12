@@ -1,12 +1,3 @@
-# Internal Developer: create a jupyterlab datalab
-
-This repository provides an example for the creation of an ESA Datalabs JupyterLab datalab for internal developers.
-
-The datalab can be created with either uploading individual files, a zip file or a git repository.
-
-Note that this `readme.md` is *not* required to create a datalab.
-
-
 ## File or repository structure
 
 A typical simple repository example is:
