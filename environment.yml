@@ -1,0 +1,11 @@
+name: demo
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip==23.1.2
+  - astropy==5.3
+  - jupyter==1.0.0
+  - matplotlib==3.7.1
+  - numpy==1.23.5
+  - scipy==1.10.1

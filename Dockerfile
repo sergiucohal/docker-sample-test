@@ -1,31 +1,28 @@
-ARG REGISTRY=repos.esac.esa.int:62220
-FROM ${REGISTRY}/datalabs/jl_minimal:0.8.0-stable
+FROM scidockreg.esac.esa.int:62510/datalabs/jl_base:0.8.0-stable-24.04 
 
-# ARG DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
-# # --- Install mamba (fast conda solver) ------------------------------------
-# #   this causes error:
-# #     /opt/miniconda/bin/python: /lib/x86_64-linux-gnu/libc.so.6:
-# # version `GLIBC_2.28' not found
-# # RUN conda install --quiet --yes -c conda-forge 'mamba' \
-# #     && conda clean --all -f -y \
-# #     && mamba shell init --shell bash --root-prefix="$(conda info --base)"
+LABEL description="Demo datalab Docker"
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-# # --- (Optional) Create a conda environment from an environment.yml --------
-# # COPY environment.yml /tmp/environment.yml
-# # RUN mamba env create -f /tmp/environment.yml \
-# #     && conda clean --all -f -y
+RUN apt-get update \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# # --- (Optional) Install packages with pip ---------------------------------
-# # RUN pip install --no-cache-dir \
-# #     somepackage==1.0.0
+COPY jupyter_notebook_config.py /home/$USER/.jupyter/
+COPY jupyter_notebook_config.py /etc/
+ENV JUPYTER_CONFIG_PATH=/etc/
 
-# # --- Copy recipe configuration files --------------------------------------
-# COPY jupyter_notebook_config.py /etc/
-# COPY user-01.sh /opt/datalab/init.d/user-01.sh
+# uncomment the following lines if you have (e.g. notebook) files to share with users:
+# (adapt as necessary)
+RUN mkdir /media/notebooks/
+COPY *.ipynb /media/notebooks/
 
-# # --- Set permissions -------------------------------------------------------
-# RUN chmod +x /opt/datalab/init.d/user-01.sh
+WORKDIR /tmp
 
-# # --- Jupyter configuration path --------------------------------------------
-# ENV JUPYTER_CONFIG_PATH=/etc/
+COPY environment.yml /tmp/
+
+RUN conda env create -f /tmp/environment.yml \
+  && conda clean -all -f -y \
+  && conda run -n demo python -m ipykernel install --name=demo --display-name=demo
+
