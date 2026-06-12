@@ -1,4 +1,5 @@
-FROM scidockreg.esac.esa.int:62510/datalabs/jl_base:0.8.0-stable-24.04 
+ARG REGISTRY=repos.esac.esa.int:62220
+FROM ${REGISTRY}/datalabs/jl_base:0.8.0-stable-24.04 
 
 ARG DEBIAN_FRONTEND=noninteractive
 
